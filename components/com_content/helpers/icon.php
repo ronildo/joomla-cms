@@ -49,7 +49,7 @@ class JHtmlIcon
 		$status = 'width=400,height=350,menubar=yes,resizable=yes';
 
 		if ($params->get('show_icons')) {
-			$text = '<i class="icon-envelope"></i> '.JText::_('JGLOBAL_EMAIL');
+			$text ='<i class="icon-envelope"></i> '.JText::_('JGLOBAL_EMAIL');
 		} else {
 			$text = JText::_('JGLOBAL_EMAIL');
 		}
