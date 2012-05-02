@@ -51,9 +51,9 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 		if ($rowcount==1) : ?>
 
-			<div class="items-row cols-<?php echo (int) $this->columns;?> <?php echo 'row-'.$row ; ?>">
+			<div class="items-row cols-<?php echo (int) $this->columns;?> <?php echo 'row-'.$row ; ?> row-fluid">
 		<?php endif; ?>
-		<div class="item column-<?php echo $rowcount;?><?php echo $item->state == 0 ? ' system-unpublished"' : null; ?>">
+		<div class="item column-<?php echo $rowcount;?><?php echo $item->state == 0 ? ' system-unpublished"' : null; ?> span<?php echo round((12/$this->columns));?>">
 			<?php
 					$this->item = &$item;
 					echo $this->loadTemplate('item');
@@ -61,7 +61,7 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 		</div>
 		<?php $counter++; ?>
 			<?php if (($rowcount == $this->columns) or ($counter ==$introcount)): ?>
-				<span class="row-separator"></span>
+				<hr class="divider-vertical" />
 				</div>
 
 			<?php endif; ?>

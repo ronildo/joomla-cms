@@ -32,22 +32,28 @@ if (!empty($this->item->pagination) AND $this->item->pagination && !$this->item-
 }
  ?>
 <?php if ($canEdit ||  $params->get('show_print_icon') || $params->get('show_email_icon')) : ?>
-	<ul class="btn-toolbar pull-right">
+	<div class="btn-group pull-right">
+	
+	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+	    <i class="icon-cog"></i>
+	    <span class="caret"></span>
+	  </a>
+	<ul class="dropdown-menu">
 	<?php if (!$this->print) : ?>
 		<?php if ($params->get('show_print_icon')) : ?>
-			<li class="btn-group print-icon">
+			<li class="print-icon">
 			<?php echo JHtml::_('icon.print_popup',  $this->item, $params); ?>
 			</li>
 		<?php endif; ?>
 
 		<?php if ($params->get('show_email_icon')) : ?>
-			<li class="btn-group email-icon">
+			<li class="email-icon">
 			<?php echo JHtml::_('icon.email',  $this->item, $params); ?>
 			</li>
 		<?php endif; ?>
 
 		<?php if ($canEdit) : ?>
-			<li class="btn-group edit-icon">
+			<li class="edit-icon">
 			<?php echo JHtml::_('icon.edit', $this->item, $params); ?>
 			</li>
 		<?php endif; ?>
@@ -57,8 +63,9 @@ if (!empty($this->item->pagination) AND $this->item->pagination && !$this->item-
 		<?php echo JHtml::_('icon.print_screen',  $this->item, $params); ?>
 		</li>
 	<?php endif; ?>
-
 	</ul>
+
+	</div>
 <?php endif; ?>
 <?php if ($params->get('show_title')) : ?>
 	<div class="page-header">
