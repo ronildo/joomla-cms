@@ -21,9 +21,11 @@ $user		= JFactory::getUser();
 ?>
 <div class="item-page<?php echo $this->pageclass_sfx?>">
 <?php if ($this->params->get('show_page_heading', 1)) : ?>
+<div class="page-header">
 	<h1>
 	<?php echo $this->escape($this->params->get('page_heading')); ?>
 	</h1>
+</div>
 <?php endif; ?>
 <?php
 if (!empty($this->item->pagination) AND $this->item->pagination && !$this->item->paginationposition && $this->item->paginationrelative)
@@ -32,70 +34,62 @@ if (!empty($this->item->pagination) AND $this->item->pagination && !$this->item-
 }
  ?>
 <?php if ($canEdit ||  $params->get('show_print_icon') || $params->get('show_email_icon')) : ?>
-	<div class="btn-group pull-right">
-	
+<div class="btn-group pull-right">	
 	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 	    <i class="icon-cog"></i>
 	    <span class="caret"></span>
 	  </a>
 	<ul class="dropdown-menu">
-	<?php if (!$this->print) : ?>
+		<?php if (!$this->print) : ?>
 		<?php if ($params->get('show_print_icon')) : ?>
 			<li class="print-icon">
 			<?php echo JHtml::_('icon.print_popup',  $this->item, $params); ?>
 			</li>
 		<?php endif; ?>
-
+	
 		<?php if ($params->get('show_email_icon')) : ?>
 			<li class="email-icon">
 			<?php echo JHtml::_('icon.email',  $this->item, $params); ?>
 			</li>
 		<?php endif; ?>
-
+	
 		<?php if ($canEdit) : ?>
 			<li class="edit-icon">
 			<?php echo JHtml::_('icon.edit', $this->item, $params); ?>
 			</li>
 		<?php endif; ?>
-
-	<?php else : ?>
+		<?php else : ?>
 		<li>
 		<?php echo JHtml::_('icon.print_screen',  $this->item, $params); ?>
 		</li>
-	<?php endif; ?>
+		<?php endif; ?>
 	</ul>
-
-	</div>
+</div>
 <?php endif; ?>
 <?php if ($params->get('show_title')) : ?>
-	<div class="page-header">
-		<h2>
-		<?php if ($params->get('link_titles') && !empty($this->item->readmore_link)) : ?>
-			<a href="<?php echo $this->item->readmore_link; ?>">
-			<?php echo $this->escape($this->item->title); ?></a>
-		<?php else : ?>
-			<?php echo $this->escape($this->item->title); ?>
-		<?php endif; ?>
-		</h2>
-	</div>
+<div class="page-header">
+	<h2>
+	<?php if ($params->get('link_titles') && !empty($this->item->readmore_link)) : ?>
+		<a href="<?php echo $this->item->readmore_link; ?>">
+		<?php echo $this->escape($this->item->title); ?></a>
+	<?php else : ?>
+		<?php echo $this->escape($this->item->title); ?>
+	<?php endif; ?>
+	</h2>
+</div>
 <?php endif; ?>
-
-<?php  if (!$params->get('show_intro')) :
-	echo $this->item->event->afterDisplayTitle;
-endif; ?>
-
+<?php  if (!$params->get('show_intro')) : echo $this->item->event->afterDisplayTitle; endif; ?>
 <?php echo $this->item->event->beforeDisplayContent; ?>
-
 <?php $useDefList = (($params->get('show_author')) or ($params->get('show_category')) or ($params->get('show_parent_category'))
 	or ($params->get('show_create_date')) or ($params->get('show_modify_date')) or ($params->get('show_publish_date'))
 	or ($params->get('show_hits'))); ?>
-
-<?php if ($useDefList) : ?>
-	<dl class="article-info well pull-right">
-	<dt class="article-info-term"><?php  echo JText::_('COM_CONTENT_ARTICLE_INFO'); ?></dt>
-<?php endif; ?>
+	<?php if ($useDefList) : ?>
+	<div class="article-info well">
+		<ul class="unstyled">
+			<li class="article-info-term"><strong><?php  echo JText::_('COM_CONTENT_ARTICLE_INFO'); ?></strong></li>
+	<?php endif; ?>
 <?php if ($params->get('show_parent_category') && $this->item->parent_slug != '1:root') : ?>
-	<dd class="parent-category-name">
+	<li class="parent-category-name">
 	<i class="icon-folder-open"></i> 
 	<?php	$title = $this->escape($this->item->parent_title);
 	$url = '<a href="'.JRoute::_(ContentHelperRoute::getCategoryRoute($this->item->parent_slug)).'">'.$title.'</a>';?>
@@ -104,10 +98,10 @@ endif; ?>
 	<?php else : ?>
 		<?php echo JText::sprintf('COM_CONTENT_PARENT', $title); ?>
 	<?php endif; ?>
-	</dd>
+	</li>
 <?php endif; ?>
 <?php if ($params->get('show_category')) : ?>
-	<dd class="category-name">
+	<li class="category-name">
 	<i class="icon-folder-open"></i> 
 	<?php 	$title = $this->escape($this->item->category_title);
 	$url = '<a href="'.JRoute::_(ContentHelperRoute::getCategoryRoute($this->item->catslug)).'">'.$title.'</a>';?>
@@ -116,28 +110,28 @@ endif; ?>
 	<?php else : ?>
 		<?php echo JText::sprintf('COM_CONTENT_CATEGORY', $title); ?>
 	<?php endif; ?>
-	</dd>
+	</li>
 <?php endif; ?>
 <?php if ($params->get('show_create_date')) : ?>
-	<dd class="create">
+	<li class="create">
 	<i class="icon-calendar"></i> 
 	<?php echo JText::sprintf('COM_CONTENT_CREATED_DATE_ON', JHtml::_('date', $this->item->created, JText::_('DATE_FORMAT_LC2'))); ?>
-	</dd>
+	</li>
 <?php endif; ?>
 <?php if ($params->get('show_modify_date')) : ?>
-	<dd class="modified">
+	<li class="modified">
 	<i class="icon-calendar"></i> 
 	<?php echo JText::sprintf('COM_CONTENT_LAST_UPDATED', JHtml::_('date', $this->item->modified, JText::_('DATE_FORMAT_LC2'))); ?>
-	</dd>
+	</li>
 <?php endif; ?>
 <?php if ($params->get('show_publish_date')) : ?>
-	<dd class="published">
+	<li class="published">
 	<i class="icon-calendar"></i> 
 	<?php echo JText::sprintf('COM_CONTENT_PUBLISHED_DATE_ON', JHtml::_('date', $this->item->publish_up, JText::_('DATE_FORMAT_LC2'))); ?>
-	</dd>
+	</li>
 <?php endif; ?>
 <?php if ($params->get('show_author') && !empty($this->item->author )) : ?>
-	<dd class="createdby">
+	<li class="createdby">
 	<i class="icon-user"></i> 
 	<?php $author = $this->item->created_by_alias ? $this->item->created_by_alias : $this->item->author; ?>
 	<?php if (!empty($this->item->contactid) && $params->get('link_author') == true): ?>
@@ -151,16 +145,17 @@ endif; ?>
 	<?php else: ?>
 		<?php echo JText::sprintf('COM_CONTENT_WRITTEN_BY', $author); ?>
 	<?php endif; ?>
-	</dd>
+	</li>
 <?php endif; ?>
 <?php if ($params->get('show_hits')) : ?>
-	<dd class="hits">
+	<li class="hits">
 	<i class="icon-eye-open"></i> 
 	<?php echo JText::sprintf('COM_CONTENT_ARTICLE_HITS', $this->item->hits); ?>
-	</dd>
+	</li>
 <?php endif; ?>
 <?php if ($useDefList) : ?>
-	</dl>
+	</ul>
+	</div>
 <?php endif; ?>
 
 <?php if (isset ($this->item->toc)) : ?>
@@ -175,7 +170,7 @@ endif; ?>
 <?php if ($params->get('access-view')):?>
 <?php  if (isset($images->image_fulltext) and !empty($images->image_fulltext)) : ?>
 <?php $imgfloat = (empty($images->float_fulltext)) ? $params->get('float_fulltext') : $images->float_fulltext; ?>
-<div class="img-fulltext-<?php echo htmlspecialchars($imgfloat); ?>">
+<div class="pull-<?php echo htmlspecialchars($imgfloat); ?> item-image">
 <img
 	<?php if ($images->image_fulltext_caption):
 		echo 'class="caption"'.' title="' .htmlspecialchars($images->image_fulltext_caption) .'"';
