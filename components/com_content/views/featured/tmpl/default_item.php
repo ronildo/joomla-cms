@@ -60,7 +60,7 @@ $canEdit	= $this->item->params->get('access-edit');
 <?php echo $this->item->event->beforeDisplayContent; ?>
 <?php // to do not that elegant would be nice to group the params ?>
 <?php if (($params->get('show_author')) or ($params->get('show_category')) or ($params->get('show_create_date')) or ($params->get('show_modify_date')) or ($params->get('show_publish_date')) or ($params->get('show_parent_category')) or ($params->get('show_hits'))) : ?>
-	 <div class="well">
+	 <div class="article-info well">
 		<ul class="unstyled">
 			<li class="article-info-term"><strong><?php  echo JText::_('COM_CONTENT_ARTICLE_INFO'); ?></strong></li>
 	  		<?php if ($params->get('show_parent_category') && $this->item->parent_id != 1) : ?>
@@ -122,7 +122,7 @@ $canEdit	= $this->item->params->get('access-edit');
 	  		<?php endif; ?>
 	  		<?php if ($params->get('show_hits')) : ?>
   			<li class="hits">
-  				<i class="icon-signal"></i>
+  				<i class="icon-eye-open"></i> 
   				<?php echo JText::sprintf('COM_CONTENT_ARTICLE_HITS', $this->item->hits); ?>
   			</li>
 		  	<?php endif; ?>
