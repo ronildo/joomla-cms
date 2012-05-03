@@ -9,13 +9,13 @@
 // no direct access
 defined('_JEXEC') or die;
 ?>
-<h3><?php echo JText::_('COM_CONTENT_MORE_ARTICLES'); ?></h3>
+<h5><?php echo JText::_('COM_CONTENT_MORE_ARTICLES'); ?></h5>
 
-<ol>
+<ul class="nav nav-list">
 <?php foreach ($this->link_items as &$item) : ?>
 	<li>
 		<a href="<?php echo JRoute::_(ContentHelperRoute::getArticleRoute($item->slug, $item->catslug)); ?>">
 			<?php echo $item->title; ?></a>
 	</li>
 <?php endforeach; ?>
-</ol>
+</ul>
