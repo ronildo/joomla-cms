@@ -16,11 +16,12 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 ?>
 <div class="blog-featured<?php echo $this->pageclass_sfx;?>">
 <?php if ( $this->params->get('show_page_heading')!=0) : ?>
+<div class="page-header">
 	<h1>
 	<?php echo $this->escape($this->params->get('page_heading')); ?>
 	</h1>
+</div>
 <?php endif; ?>
-
 <?php $leadingcount=0 ; ?>
 <?php if (!empty($this->lead_items)) : ?>
 <div class="items-leading">
@@ -31,6 +32,7 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 				echo $this->loadTemplate('item');
 			?>
 		</div>
+		<hr class="divider-vertical" />
 		<?php
 			$leadingcount++;
 		?>
@@ -44,34 +46,37 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 <?php if (!empty($this->intro_items)) : ?>
 	<?php foreach ($this->intro_items as $key => &$item) : ?>
 
-	<?php
+		<?php
 		$key= ($key-$leadingcount)+1;
 		$rowcount=( ((int)$key-1) %	(int) $this->columns) +1;
 		$row = $counter / $this->columns ;
 
 		if ($rowcount==1) : ?>
 
-			<div class="items-row cols-<?php echo (int) $this->columns;?> <?php echo 'row-'.$row ; ?> row-fluid">
+		<div class="items-row cols-<?php echo (int) $this->columns;?> <?php echo 'row-'.$row ; ?> row-fluid">
 		<?php endif; ?>
-		<div class="item column-<?php echo $rowcount;?><?php echo $item->state == 0 ? ' system-unpublished"' : null; ?> span<?php echo round((12/$this->columns));?>">
+			<div class="item column-<?php echo $rowcount;?><?php echo $item->state == 0 ? ' system-unpublished"' : null; ?> span<?php echo round((12/$this->columns));?>">
 			<?php
 					$this->item = &$item;
 					echo $this->loadTemplate('item');
 			?>
+			</div>
+			<?php $counter++; ?>
+			
+			<?php if (($rowcount == $this->columns) or ($counter ==$introcount)): ?>	
+			
 		</div>
-		<?php $counter++; ?>
-			<?php if (($rowcount == $this->columns) or ($counter ==$introcount)): ?>
-				<hr class="divider-vertical" />
-				</div>
-
-			<?php endif; ?>
+		<hr class="divider-vertical" />
+		<?php endif; ?>
+			
 	<?php endforeach; ?>
 <?php endif; ?>
 
 <?php if (!empty($this->link_items)) : ?>
-	<div class="items-more">
+	<div class="well items-more">
 	<?php echo $this->loadTemplate('links'); ?>
 	</div>
+	<hr class="divider-vertical" />
 <?php endif; ?>
 
 <?php if ($this->params->def('show_pagination', 2) == 1  || ($this->params->get('show_pagination') == 2 && $this->pagination->get('pages.total') > 1)) : ?>
