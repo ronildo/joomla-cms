@@ -156,6 +156,7 @@ $canEdit	= $this->item->params->get('access-edit');
 	endif;
 	?>
 	<a class="btn" href="<?php echo $link; ?>">
+		<i class="icon-chevron-right"></i>
 		<?php if (!$params->get('access-view')) :
 			echo JText::_('COM_CONTENT_REGISTER_TO_READ_MORE');
 		elseif ($readmore = $this->item->alternative_readmore) :
