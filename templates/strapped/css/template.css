@@ -1,4 +1,9 @@
 /* CSS Document */
+/* Site Body Styles */
+body.site{
+	border-top:3px solid #0088cc;
+}
+
 .thumbnail {
 	margin-bottom:9px;
 }
@@ -16,7 +21,6 @@
 	background-image: linear-gradient(#d9effa, #d9effa 25%, #ffffff);
 	background-repeat: no-repeat;
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#d9effa', endColorstr='#ffffff', GradientType=0);
-	border-top:3px solid #0088cc;
 }
 .header-inner {
 	padding:20px 0;

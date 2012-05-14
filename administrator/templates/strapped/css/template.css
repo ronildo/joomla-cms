@@ -61,6 +61,18 @@ body .navbar-fixed-top{
 	padding: 10px;
 	
 }
+.navbar .btn-navbar{
+	background: #17568c; /* Old browsers */
+	background: -moz-linear-gradient(top,  #17568c 0%, #1a3867 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#17568c), color-stop(100%,#1a3867)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #17568c 0%,#1a3867 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #17568c 0%,#1a3867 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #17568c 0%,#1a3867 100%); /* IE10+ */
+	background: linear-gradient(top,  #17568c 0%,#1a3867 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#17568c', endColorstr='#1a3867',GradientType=0 ); /* IE6-9 */
+	
+	border: 1px solid #0D2242;
+}
 @media (max-width: 767px) {
   .header{
   	margin-left: -20px;
@@ -193,4 +205,14 @@ body .navbar-fixed-top{
 /* Nav list filters */
 .nav-filters hr{
 	margin: 5px 0;
+}
+
+@media (max-width: 767px) {
+	.page-title{
+		text-align: center;
+	}
+	.navbar-search.pull-right{
+		float: none;
+		text-align: center;
+	}
 }
