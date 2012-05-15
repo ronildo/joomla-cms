@@ -61,8 +61,8 @@ defined('_JEXEC') or die;
 			</td>
 			<td class="center">
 				<?php if ($user->client_id == 0) :?>
-					<a href="<?php echo $user->logoutLink;?>">
-						<?php echo JHtml::_('image', 'mod_logged/icon-16-logout.png', JText::_('JLOGOUT'), null, true);?>
+					<a href="<?php echo $user->logoutLink;?>" class="btn btn-danger btn-mini">
+						<i class="icon-remove icon-white tip" title="<?php echo JText::_('JLOGOUT');?>"></i>
 					</a>
 				<?php endif; ?>
 			</td>
