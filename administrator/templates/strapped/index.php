@@ -173,6 +173,7 @@ $user =& JFactory::getUser();
 	<script>
 		jQuery('.tip').tooltip()
 		jQuery('.tip-bottom').tooltip({placement: "bottom"})
+		jQuery('.pop').popover()
 	</script>
 </body>
 </html>
