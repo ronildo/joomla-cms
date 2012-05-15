@@ -66,6 +66,14 @@ Joomla.submitbutton = function(pressbutton) {
 			</select>
 		</div>
 	</div>
+	<?php if (!$this->pluginState['plg_content_finder']->enabled) : ?>
+		<div class="alert fade in">
+            <button class="close" data-dismiss="alert">×</button>
+            <?php
+            echo JText::_('COM_FINDER_INDEX_PLUGIN_CONTENT_NOT_ENABLED');
+            ?>
+          </div>
+	<?php endif; ?>
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -81,24 +89,12 @@ Joomla.submitbutton = function(pressbutton) {
 				<th width="5%">
 					<?php echo JHtml::_('grid.sort', 'COM_FINDER_INDEX_HEADING_INDEX_TYPE', 'l.type_id', $listDirn, $listOrder); ?>
 				</th>
-				<th width="20%">
-					<?php echo JHtml::_('grid.sort', 'COM_FINDER_INDEX_HEADING_LINK_URL', 'l.url', $listDirn, $listOrder); ?>
-				</th>
-				<th width="10%">
+				<th width="15%">
 					<?php echo JHtml::_('grid.sort', 'COM_FINDER_INDEX_HEADING_INDEX_DATE', 'l.indexdate', $listDirn, $listOrder); ?>
 				</th>
 			</tr>
 		</thead>
 		<tbody>
-			<?php if (!$this->pluginState['plg_content_finder']->enabled) : ?>
-			<tr class="row0">
-				<td align="center" colspan="7">
-					<?php
-					echo JText::_('COM_FINDER_INDEX_PLUGIN_CONTENT_NOT_ENABLED');
-					?>
-				</td>
-			</tr>
-			<?php endif; ?>
 			<?php if (count($this->items) == 0): ?>
 			<tr class="row0">
 				<td align="center" colspan="7">
@@ -124,7 +120,16 @@ Joomla.submitbutton = function(pressbutton) {
 					<?php if (intval($item->publish_start_date) or intval($item->publish_end_date) or intval($item->start_date) or intval($item->end_date)) : ?>
 						<i class="icon-calendar pull-right pop" rel="popover" title="<?php echo JText::_('JDETAILS');?>" data-content="<?php echo JText::sprintf('COM_FINDER_INDEX_DATE_INFO', $item->publish_start_date, $item->publish_end_date, $item->start_date, $item->end_date);?>"></i>
 					<?php endif; ?>
-					<?php echo $this->escape($item->title); ?>
+					<?php echo '<h4>' . $this->escape($item->title) . '</h4>'; ?>
+					<?php
+					echo '<small>';
+					if (strlen($item->url) > 80) {
+						echo substr($item->url, 0, 70) . '...';
+					} else {
+						echo $item->url;
+					}
+					echo '</small>';
+					?>
 				</td>
 				<td class="center nowrap">
 					<?php echo JHtml::_('jgrid.published', $item->published, $i, 'index.', $canChange, 'cb'); ?>
@@ -133,15 +138,6 @@ Joomla.submitbutton = function(pressbutton) {
 					<?php
 					$key = FinderHelperLanguage::branchSingular($item->t_title);
 					echo $lang->hasKey($key) ? JText::_($key) : $item->t_title;
-					?>
-				</td>
-				<td class="nowrap">
-					<?php
-					if (strlen($item->url) > 80) {
-						echo substr($item->url, 0, 70) . '...';
-					} else {
-						echo $item->url;
-					}
 					?>
 				</td>
 				<td class="center nowrap">
