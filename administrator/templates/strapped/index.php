@@ -68,7 +68,7 @@ $user =& JFactory::getUser();
 	<!-- Top Navigation -->
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
-			<div class="container"> <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a> <a class="brand" href="<?php echo $this->baseurl; ?>"><?php echo $sitename; ?></a>
+			<div class="container-fluid"> <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a> <a class="brand" href="<?php echo $this->baseurl; ?>"><?php echo $sitename; ?></a>
 				<div class="nav-collapse">
 					<jdoc:include type="modules" name="menu" style="none" />
 					<ul class="nav pull-right">
@@ -102,8 +102,8 @@ $user =& JFactory::getUser();
 	</div>
 	<!-- Header -->
 	<div class="header">
-		<div class="container">
-			<div class="row">
+		<div class="container-fluid">
+			<div class="row-fluid">
 				<div class="span2">
 					<a class="logo" href="<?php echo $this->baseurl; ?>"></a>
 				</div>
@@ -123,17 +123,17 @@ $user =& JFactory::getUser();
 	</div>
 	<!-- Subheader -->
 	<div class="subhead">
-		<div class="container">
-			<div class="row">
+		<div class="container-fluid">
+			<div class="row-fluid">
 				<div class="span12">
 					<jdoc:include type="modules" name="toolbar" style="no" />
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- Container -->
-	<div class="container">
-		<div class="row">
+	<!-- container-fluid -->
+	<div class="container-fluid">
+		<div class="row-fluid">
 			<?php if (!JRequest::getInt('hidemainmenu') && $option != "com_cpanel"): ?>
 			<!-- Begin Sidebar -->
 			<div id="sidebar" class="span2">
