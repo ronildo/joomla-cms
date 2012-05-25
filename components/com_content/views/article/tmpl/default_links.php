@@ -17,9 +17,8 @@ $urls = json_decode($this->item->urls);
 $params = $this->item->params;
 if ($urls && (!empty($urls->urla) || !empty($urls->urlb) || !empty($urls->urlc))) :
 ?>
-<div class="well content-links">
-	<ul class="nav nav-list">
-	<li class="nav-header">Links</li>
+<div class="content-links">
+	<ul class="nav nav-tabs nav-stacked">
 		<?php
 			$urlarray = array(
 			array($urls->urla, $urls->urlatext, $urls->targeta, 'a'),
