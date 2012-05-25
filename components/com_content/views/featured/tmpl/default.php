@@ -73,7 +73,7 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 <?php endif; ?>
 
 <?php if (!empty($this->link_items)) : ?>
-	<div class="well items-more">
+	<div class="items-more">
 	<?php echo $this->loadTemplate('links'); ?>
 	</div>
 	<hr class="divider-vertical" />
