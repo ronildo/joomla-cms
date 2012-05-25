@@ -9,10 +9,7 @@
 // no direct access
 defined('_JEXEC') or die;
 ?>
-<ul class="nav nav-list">
-<li class="nav-header">
-<?php echo JText::_('COM_CONTENT_MORE_ARTICLES'); ?>
-</li>
+<ul class="nav nav-tabs nav-stacked">
 <?php foreach ($this->link_items as &$item) : ?>
 	<li>
 		<a href="<?php echo JRoute::_(ContentHelperRoute::getArticleRoute($item->slug, $item->catslug)); ?>">
