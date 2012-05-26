@@ -105,15 +105,22 @@ class JFormFieldRules extends JFormField
 
 		// Prepare output
 		$html = array();
+		
 		$html[] = '<div id="permissions-sliders" class="tabbable tabs-left">';
 		$html[] = '<p class="rule-desc">' . JText::_('JLIB_RULES_SETTINGS_DESC') . '</p>';
 		// Building tab nav
 		$html[] = '<ul class="nav nav-tabs">';
 		foreach ($groups as $group)
 		{			
-			$html[] = '<li>';
-				$html[] = '<a href="#permission-'. $group->level .'" data-toggle="tab">';
-				$html[] = $group->text;
+			// Initial Active Tab
+			$active= "";
+			if($group->value == 1):
+			$active= "active";
+			endif;
+			
+			$html[] = '<li class="'.$active.'">';
+				$html[] = '<a href="#permission-'. $group->value .'" data-toggle="tab">';
+				$html[] = str_repeat('<span class="level">&ndash;</i> ', $curLevel = $group->level) . $group->text;
 				$html[] = '</a>';
 			$html[] = '</li>';
 		}
@@ -124,9 +131,15 @@ class JFormFieldRules extends JFormField
 		// Start a row for each user group.
 		foreach ($groups as $group)
 		{
+			// Initial Active Pane
+			$active= "";
+			if($group->value == 1):
+			$active= "active";
+			endif;
+			
 			$difLevel = $group->level - $curLevel;
 
-			$html[] = '<div class="tab-pane" id="permission-'. $group->level .'">';
+			$html[] = '<div class="tab-pane '.$active.'" id="permission-'. $group->value .'">';
 			$html[] = '<table class="table table-striped">';
 			$html[] = '<thead>';
 			$html[] = '<tr>';
@@ -164,7 +177,7 @@ class JFormFieldRules extends JFormField
 
 				$html[] = '<td headers="settings-th' . $group->value . '">';
 
-				$html[] = '<select class="input-medium" name="' . $this->name . '[' . $action->name . '][' . $group->value . ']" id="' . $this->id . '_' . $action->name
+				$html[] = '<select class="input-small" name="' . $this->name . '[' . $action->name . '][' . $group->value . ']" id="' . $this->id . '_' . $action->name
 					. '_' . $group->value . '" title="'
 					. JText::sprintf('JLIB_RULES_SELECT_ALLOW_DENY_GROUP', JText::_($action->title), trim($group->text)) . '">';
 
