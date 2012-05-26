@@ -72,26 +72,29 @@ $user =& JFactory::getUser();
 				<div class="nav-collapse">
 					<jdoc:include type="modules" name="menu" style="none" />
 					<ul class="nav pull-right">
-						<li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">Settings <b class="caret"></b></a>
+						<li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo JText::_('TPL_STRAPPED_SETTINGS');?> <b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<?php if($user->authorise('core.admin')):?>
-									<li><a href="<?php echo $this->baseurl; ?>/index.php?option=com_config">Global Configuration</a></li>
-									<li><a href="<?php echo $this->baseurl; ?>/index.php?option=com_admin&view=sysinfo">System Information</a></li>
+									<li><a href="<?php echo $this->baseurl; ?>/index.php?option=com_config"><?php echo JText::_('TPL_STRAPPED_GLOBAL_CONFIGURATION');?></a></li>
+									<li class="divider"></li>
+									<li><a href="<?php echo $this->baseurl; ?>/index.php?option=com_admin&view=sysinfo"><?php echo JText::_('TPL_STRAPPED_SYSTEM_INFORMATION');?></a></li>
 								<?php endif;?>
 								<?php if($user->authorise('core.manage', 'com_cache')):?>
-									 <li><a href="<?php echo $this->baseurl; ?>/index.php?option=com_cache">Clear Cache</a></li>
+									 <li><a href="<?php echo $this->baseurl; ?>/index.php?option=com_cache"><?php echo JText::_('TPL_STRAPPED_CLEAR_CACHE');?></a></li>
 								<?php endif;?>
 								<?php if($user->authorise('core.admin', 'com_checkin')):?>
-									<li><a href="<?php echo $this->baseurl; ?>/index.php?option=com_checkin">Global Check-in</a></li>
+									<li><a href="<?php echo $this->baseurl; ?>/index.php?option=com_checkin"><?php echo JText::_('TPL_STRAPPED_GLOBAL_CHECK_IN');?></a></li>
 								<?php endif;?>
 								<?php if($user->authorise('core.manage', 'com_installer')):?>
-									 <li><a href="<?php echo $this->baseurl; ?>/index.php?option=com_installer">Install Extensions</a></li>
+									 <li><a href="<?php echo $this->baseurl; ?>/index.php?option=com_installer"><?php echo JText::_('TPL_STRAPPED_INSTALLER');?></a></li>
 								<?php endif;?>
 							</ul>
 						</li>
 						<li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $user->username; ?> <b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li class=""><a href="index.php?option=com_admin&task=profile.edit&id=<?php echo $user->id;?>">Account</a></li>
+								<li class=""><a href="index.php?option=com_admin&task=profile.edit&id=<?php echo $user->id;?>"><?php echo JText::_('TPL_STRAPPED_EDIT_ACCOUNT');?></a></li>
+								<li class="divider"></li>
+								<li class=""><a href="<?php echo JRoute::_('index.php?option=com_login&task=logout&'. JSession::getFormToken() .'=1');?>"><?php echo JText::_('TPL_STRAPPED_LOGOUT');?></a></li>
 							</ul>
 						</li>
 					</ul>
@@ -104,8 +107,8 @@ $user =& JFactory::getUser();
 	<div class="header">
 		<div class="container-fluid">
 			<div class="row-fluid">
-				<div class="span2">
-					<a class="logo" href="<?php echo $this->baseurl; ?>"></a>
+				<div class="span2 container-logo">
+					<a class="logo" href="<?php echo $this->baseurl; ?>"><img src="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template ?>/images/logo.png" alt="<?php echo $sitename; ?>" /></a>
 				</div>
 				<div class="span7">
 					<h1 class="page-title"><?php echo JHtml::_('string.truncate', $app->get('JComponentTitle'), 40, false, false);?></h1>
