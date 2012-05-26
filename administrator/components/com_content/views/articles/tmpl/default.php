@@ -91,6 +91,9 @@ $saveOrder	= $listOrder == 'a.ordering';
 				<th width="10%">
 					<?php echo JHtml::_('grid.sort', 'JAUTHOR', 'a.created_by', $listDirn, $listOrder); ?>
 				</th>
+				<th width="5%">
+					<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_LANGUAGE', 'language', $listDirn, $listOrder); ?>
+				</th>
 				<th width="10%">
 					<?php echo JHtml::_('grid.sort', 'JDATE', 'a.created', $listDirn, $listOrder); ?>
 				</th>
@@ -131,7 +134,7 @@ $saveOrder	= $listOrder == 'a.ordering';
 						<?php $language = $item->language_title ? $this->escape($item->language_title) : JText::_('JUNDEFINED'); ?>
 					<?php endif;?> 
 					<?php if ($canEdit || $canEditOwn) : ?>
-						<a href="<?php echo JRoute::_('index.php?option=com_content&task=article.edit&id='.$item->id);?>" rel="popover" title="<?php echo JText::_('JDETAILS');?>" data-content="<?php echo JText::_('JFIELD_ALIAS_LABEL') . " " . $this->escape($item->alias) . "<br />\n" . JText::_('JGRID_HEADING_LANGUAGE') . " " . $language . "<br />\n" . JText::_('JGLOBAL_HITS') . " " . (int) $item->hits . " \n";?>" class="pop">
+						<a href="<?php echo JRoute::_('index.php?option=com_content&task=article.edit&id='.$item->id);?>" rel="popover" title="<?php echo JText::_('JDETAILS');?>" data-content="<?php echo JText::_('JFIELD_ALIAS_LABEL') . " " . $this->escape($item->alias) . "<br />\n" . JText::_('JGLOBAL_HITS') . " " . (int) $item->hits . " \n";?>" class="pop">
 							<?php echo $this->escape($item->title); ?></a>
 					<?php else : ?>
 						<span title="<?php echo JText::sprintf('JFIELD_ALIAS_LABEL', $this->escape($item->alias));?>"><?php echo $this->escape($item->title); ?></span>
@@ -165,6 +168,13 @@ $saveOrder	= $listOrder == 'a.ordering';
 				</td>
 				<td class="small">
 					<?php echo $this->escape($item->author_name); ?>
+				</td>
+				<td class="small">
+					<?php if ($item->language=='*'):?>
+						<?php echo JText::alt('JALL', 'language'); ?>
+					<?php else:?>
+						<?php echo $item->language_title ? $this->escape($item->language_title) : JText::_('JUNDEFINED'); ?>
+					<?php endif;?>
 				</td>
 				<td class="nowrap small">
 					<?php echo JHtml::_('date', $item->created, JText::_('DATE_FORMAT_LC4')); ?>
