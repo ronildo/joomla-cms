@@ -97,10 +97,12 @@ body .navbar-fixed-top{
 }
 /* Logo */
 .logo{
-	background: url(../images/logo.png) no-repeat 50% 50%;
-	display: block;
-	height: 30px;
-	text-indent: -9999px;
+	width: 100%;
+	max-width: 143px;
+	height: auto;
+}
+.container-logo{
+	text-align: center;
 }
 /* Page Title */
 .page-title{
