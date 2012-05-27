@@ -72,7 +72,7 @@ $saveOrder 	= ($listOrder == 'a.lft' && $listDirn == 'asc');
 					<?php echo JHtml::_('grid.sort', 'JGLOBAL_TITLE', 'a.title', $listDirn, $listOrder); ?>
 				</th>
 				<th width="5%">
-					<?php echo JHtml::_('grid.sort', 'JSTATUS', 'a.published', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('grid.sort', 'COM_MENUS_HEADING_HOME', 'a.home', $listDirn, $listOrder); ?>
 				</th>
 				<th width="13%">
 					<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ORDERING', 'a.lft', $listDirn, $listOrder); ?>
@@ -82,12 +82,6 @@ $saveOrder 	= ($listOrder == 'a.lft' && $listDirn == 'asc');
 				</th>
 				<th width="10%">
 					<?php echo JHtml::_('grid.sort',  'JGRID_HEADING_ACCESS', 'a.access', $listDirn, $listOrder); ?>
-				</th>
-				<th width="10%">
-					<?php echo JText::_('JGRID_HEADING_MENU_ITEM_TYPE'); ?>
-				</th>
-				<th width="5%">
-					<?php echo JHtml::_('grid.sort', 'COM_MENUS_HEADING_HOME', 'a.home', $listDirn, $listOrder); ?>
 				</th>
 				<?php if ($app->get('menu_associations', 0)):?>
 				<th width="5%">
@@ -125,6 +119,7 @@ $saveOrder 	= ($listOrder == 'a.lft' && $listDirn == 'asc');
 					<?php echo JHtml::_('grid.id', $i, $item->id); ?>
 				</td>
 				<td>
+					<?php echo JHtml::_('MenusHtml.Menus.state', $item->published, $i, $canChange, 'cb'); ?>
 					<?php echo str_repeat('<span class="gi">|&mdash;</span>', $item->level-1) ?>
 					<?php if ($item->checked_out) : ?>
 						<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'items.', $canCheckin); ?>
@@ -135,40 +130,22 @@ $saveOrder 	= ($listOrder == 'a.lft' && $listDirn == 'asc');
 					<?php else : ?>
 						<?php echo $this->escape($item->title); ?>
 					<?php endif; ?>
-					<p class="small" title="<?php echo $this->escape($item->path);?>">
-						<?php echo str_repeat('<span class="gtr">|&mdash;</span>', $item->level-1) ?>
-						<?php if ($item->type !='url') : ?>
-							<?php if (empty($item->note)) : ?>
-								<?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?>
-							<?php else : ?>
-								<?php echo JText::sprintf('JGLOBAL_LIST_ALIAS_NOTE', $this->escape($item->alias), $this->escape($item->note));?>
-							<?php endif; ?>
-						<?php elseif($item->type =='url' && $item->note) : ?>
-							<?php echo JText::sprintf('JGLOBAL_LIST_NOTE', $this->escape($item->note));?>
-						<?php endif; ?></p>
-				</td>
-				<td class="center">
-					<?php echo JHtml::_('MenusHtml.Menus.state', $item->published, $i, $canChange, 'cb'); ?>
-				</td>
-				<td class="order">
-					<?php if ($canChange) : ?>
-						<?php if ($saveOrder) : ?>
-							<span><?php echo $this->pagination->orderUpIcon($i, isset($this->ordering[$item->parent_id][$orderkey - 1]), 'items.orderup', 'JLIB_HTML_MOVE_UP', $ordering); ?></span>
-							<span><?php echo $this->pagination->orderDownIcon($i, $this->pagination->total, isset($this->ordering[$item->parent_id][$orderkey + 1]), 'items.orderdown', 'JLIB_HTML_MOVE_DOWN', $ordering); ?></span>
+					<span class="small">
+					<?php if ($item->type !='url') : ?>
+						<?php if (empty($item->note)) : ?>
+							<?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?>
+						<?php else : ?>
+							<?php echo JText::sprintf('JGLOBAL_LIST_ALIAS_NOTE', $this->escape($item->alias), $this->escape($item->note));?>
 						<?php endif; ?>
-						<?php $disabled = $saveOrder ?  '' : 'disabled="disabled"'; ?>
-						<input type="text" name="order[]" class="span1" size="5" value="<?php echo $orderkey + 1;?>" <?php echo $disabled ?> class="text-area-order" />
-						<?php $originalOrders[] = $orderkey + 1; ?>
-					<?php else : ?>
-						<?php echo $orderkey + 1;?>
+					<?php elseif($item->type =='url' && $item->note) : ?>
+						<?php echo JText::sprintf('JGLOBAL_LIST_NOTE', $this->escape($item->note));?>
 					<?php endif; ?>
-				</td>
-				<td class="center">
-					<?php echo $this->escape($item->access_level); ?>
-				</td>
-				<td class="nowrap">
-					<span title="<?php echo isset($item->item_type_desc) ? htmlspecialchars($this->escape($item->item_type_desc), ENT_COMPAT, 'UTF-8') : ''; ?>">
-						<?php echo $this->escape($item->item_type); ?></span>
+					</span>
+					<div class="small" title="<?php echo $this->escape($item->path);?>">
+						<?php echo str_repeat('<span class="gtr">&mdash;</span>', $item->level-1) ?>
+						<span title="<?php echo isset($item->item_type_desc) ? htmlspecialchars($this->escape($item->item_type_desc), ENT_COMPAT, 'UTF-8') : ''; ?>">
+							<?php echo $this->escape($item->item_type); ?></span>
+						</div>
 				</td>
 				<td class="center">
 					<?php if ($item->type == 'component') : ?>
@@ -183,14 +160,31 @@ $saveOrder 	= ($listOrder == 'a.lft' && $listDirn == 'asc');
 						<?php endif;?>
 					<?php endif; ?>
 				</td>
+				<td class="order">
+					<?php if ($canChange) : ?>
+						<div class="input-prepend">
+							<?php if ($saveOrder) : ?>
+								<span class="add-on"><?php echo $this->pagination->orderUpIcon($i, isset($this->ordering[$item->parent_id][$orderkey - 1]), 'items.orderup', 'JLIB_HTML_MOVE_UP', $ordering); ?></span><span class="add-on"><?php echo $this->pagination->orderDownIcon($i, $this->pagination->total, isset($this->ordering[$item->parent_id][$orderkey + 1]), 'items.orderdown', 'JLIB_HTML_MOVE_DOWN', $ordering); ?></span>
+							<?php endif; ?>
+							<?php $disabled = $saveOrder ?  '' : 'disabled="disabled"'; ?>
+							<?php if(!$disabled = $saveOrder) : echo "<span class=\"add-on tip\" title=\"".JText::_('JDISABLED')."\"><i class=\"icon-ban-circle\"></i></span>"; endif;?><input type="text" name="order[]" class="width-20" size="5" value="<?php echo $orderkey + 1;?>" <?php echo $disabled ?> class="text-area-order" />
+							<?php $originalOrders[] = $orderkey + 1; ?>
+						</div>
+					<?php else : ?>
+						<?php echo $orderkey + 1;?>
+					<?php endif; ?>
+				</td>
+				<td class="small">
+					<?php echo $this->escape($item->access_level); ?>
+				</td>
 				<?php if ($app->get('menu_associations', 0)):?>
-				<td class="center">
+				<td class="small">
 					<?php if ($item->association):?>
 						<?php echo JHtml::_('MenusHtml.Menus.association', $item->id);?>
 					<?php endif;?>
 				</td>
 				<?php endif;?>
-				<td class="center">
+				<td class="small">
 					<?php if ($item->language==''):?>
 						<?php echo JText::_('JDEFAULT'); ?>
 					<?php elseif ($item->language=='*'):?>
