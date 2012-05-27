@@ -58,13 +58,7 @@ $saveOrder	= $listOrder == 'fp.ordering';
 				<th class="title">
 					<?php echo JHtml::_('grid.sort', 'JGLOBAL_TITLE', 'a.title', $listDirn, $listOrder); ?>
 				</th>
-				<th width="5%">
-					<?php echo JHtml::_('grid.sort', 'JSTATUS', 'a.state', $listDirn, $listOrder); ?>
-				</th>
-				<th width="5%">
-					<?php echo JHtml::_('grid.sort', 'JCATEGORY', 'a.catid', $listDirn, $listOrder); ?>
-				</th>
-				<th width="10%">
+				<th width="15%">
 					<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ORDERING', 'fp.ordering', $listDirn, $listOrder); ?>
 					<?php if ($canOrder && $saveOrder) :?>
 						<?php echo JHtml::_('grid.order',  $this->items, 'filesave.png', 'featured.saveorder'); ?>
@@ -74,16 +68,13 @@ $saveOrder	= $listOrder == 'fp.ordering';
 					<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ACCESS', 'a.access', $listDirn, $listOrder); ?>
 				</th>
 				<th width="10%">
-					<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_CREATED_BY', 'a.created_by', $listDirn, $listOrder); ?>
-				</th>
-				<th width="5%">
-					<?php echo JHtml::_('grid.sort', 'JDATE', 'a.created', $listDirn, $listOrder); ?>
-				</th>
-				<th width="5%">
-					<?php echo JHtml::_('grid.sort', 'JGLOBAL_HITS', 'a.hits', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('grid.sort', 'JAUTHOR', 'a.created_by', $listDirn, $listOrder); ?>
 				</th>
 				<th width="5%">
 					<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_LANGUAGE', 'a.language', $listDirn, $listOrder); ?>
+				</th>
+				<th width="5%">
+					<?php echo JHtml::_('grid.sort', 'JDATE', 'a.created', $listDirn, $listOrder); ?>
 				</th>
 				<th width="1%" class="nowrap">
 					<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
@@ -113,59 +104,52 @@ $saveOrder	= $listOrder == 'fp.ordering';
 					<?php echo JHtml::_('grid.id', $i, $item->id); ?>
 				</td>
 				<td>
+					<?php echo JHtml::_('jgrid.published', $item->state, $i, 'articles.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
 					<?php if ($item->checked_out) : ?>
 						<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'featured.', $canCheckin); ?>
 					<?php endif; ?>
 					<?php if ($canEdit) : ?>
-					<a href="<?php echo JRoute::_('index.php?option=com_content&task=article.edit&return=featured&id='.$item->id);?>">
+					<a href="<?php echo JRoute::_('index.php?option=com_content&task=article.edit&return=featured&id='.$item->id);?>" rel="popover" title="<?php echo JText::_('JDETAILS');?>" data-content="<?php echo JText::_('JFIELD_ALIAS_LABEL') . " " . $this->escape($item->alias) . "<br />\n" . JText::_('JGLOBAL_HITS') . " " . (int) $item->hits . " \n";?>" class="pop">
 						<?php echo $this->escape($item->title); ?></a>
 					<?php else : ?>
 						<?php echo $this->escape($item->title); ?>
 					<?php endif; ?>
-					<p class="smallsub">
-						<?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?></p>
-				</td>
-				<td class="center">
-					<?php echo JHtml::_('jgrid.published', $item->state, $i, 'articles.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
-				</td>
-				<td class="center">
-					<?php echo $this->escape($item->category_title); ?>
+					<div class="small">
+						<?php echo JText::_('JCATEGORY') . ": " . $this->escape($item->category_title); ?>
+					</div>
 				</td>
 				<td class="order">
 					<?php if ($canChange) : ?>
-						<?php if ($saveOrder) :?>
-							<?php if ($listDirn == 'asc') : ?>
-								<span><?php echo $this->pagination->orderUpIcon($i, true, 'featured.orderup', 'JLIB_HTML_MOVE_UP', $ordering); ?></span>
-								<span><?php echo $this->pagination->orderDownIcon($i, $this->pagination->total, true, 'featured.orderdown', 'JLIB_HTML_MOVE_DOWN', $ordering); ?></span>
-							<?php elseif ($listDirn == 'desc') : ?>
-								<span><?php echo $this->pagination->orderUpIcon($i, true, 'featured.orderdown', 'JLIB_HTML_MOVE_UP', $ordering); ?></span>
-								<span><?php echo $this->pagination->orderDownIcon($i, $this->pagination->total, true, 'featured.orderup', 'JLIB_HTML_MOVE_DOWN', $ordering); ?></span>
+						<div class="input-prepend">
+							<?php if ($saveOrder) :?>
+								<?php if ($listDirn == 'asc') : ?>
+									<span class="add-on"><?php echo $this->pagination->orderUpIcon($i, true, 'featured.orderup', 'JLIB_HTML_MOVE_UP', $ordering); ?></span><span class="add-on"><?php echo $this->pagination->orderDownIcon($i, $this->pagination->total, true, 'featured.orderdown', 'JLIB_HTML_MOVE_DOWN', $ordering); ?></span>
+								<?php elseif ($listDirn == 'desc') : ?>
+									<span class="add-on"><?php echo $this->pagination->orderUpIcon($i, true, 'featured.orderdown', 'JLIB_HTML_MOVE_UP', $ordering); ?></span><span class="add-on"><?php echo $this->pagination->orderDownIcon($i, $this->pagination->total, true, 'featured.orderup', 'JLIB_HTML_MOVE_DOWN', $ordering); ?></span>
+								<?php endif; ?>
 							<?php endif; ?>
-						<?php endif; ?>
-						<?php $disabled = $saveOrder ?  '' : 'disabled="disabled"'; ?>
-						<input type="text" name="order[]" size="5" value="<?php echo $item->ordering;?>" <?php echo $disabled ?> class="span1 text-area-order" />
+							<?php $disabled = $saveOrder ?  '' : 'disabled="disabled"'; ?>
+							<?php if(!$disabled = $saveOrder) : echo "<span class=\"add-on tip\" title=\"".JText::_('JDISABLED')."\"><i class=\"icon-ban-circle\"></i></span>"; endif;?><input type="text" name="order[]" size="5" value="<?php echo $item->ordering;?>" <?php echo $disabled ?> class="width-20 text-area-order" />
+						</div>
 					<?php else : ?>
 						<?php echo $item->ordering; ?>
 					<?php endif; ?>
 				</td>
-				<td class="center">
+				<td class="small">
 					<?php echo $this->escape($item->access_level); ?>
 				</td>
-				<td class="center">
+				<td class="small">
 					<?php echo $this->escape($item->author_name); ?>
 				</td>
-				<td class="center nowrap">
-					<?php echo JHtml::_('date', $item->created, JText::_('DATE_FORMAT_LC4')); ?>
-				</td>
-				<td class="center">
-					<?php echo (int) $item->hits; ?>
-				</td>
-				<td class="center">
+				<td class="small">
 					<?php if ($item->language=='*'):?>
 						<?php echo JText::alt('JALL', 'language'); ?>
 					<?php else:?>
 						<?php echo $item->language_title ? $this->escape($item->language_title) : JText::_('JUNDEFINED'); ?>
 					<?php endif;?>
+				</td>
+				<td class="small nowrap">
+					<?php echo JHtml::_('date', $item->created, JText::_('DATE_FORMAT_LC4')); ?>
 				</td>
 				<td class="center">
 					<?php echo (int) $item->id; ?>
