@@ -44,19 +44,22 @@ class JToolbarButtonStandard extends JButton
 		$class = $this->fetchIconClass($name);
 		$doTask = $this->_getCommand($text, $task, $list);
 		
-		if(($name == "apply") || ($name == "new")):
+		if ($name == "apply" || $name == "new")
+		{
 			$btnClass = "btn btn-primary";
 			$iconWhite = "icon-white";
-		else:
+		}
+		else
+		{
 			$btnClass = "btn";
 			$iconWhite = "";
-		endif;
+		}
 
-		$html = "<a href=\"#\" onclick=\"$doTask\" class=\"".$btnClass."\">\n";
+		$html = "<button href=\"#\" onclick=\"$doTask\" class=\"".$btnClass."\">\n";
 		$html .= "<i class=\"$class $iconWhite\">\n";
 		$html .= "</i>\n";
 		$html .= "$i18n_text\n";
-		$html .= "</a>\n";
+		$html .= "</button>\n";
 
 		return $html;
 	}

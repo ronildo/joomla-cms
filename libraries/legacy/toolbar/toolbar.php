@@ -167,7 +167,6 @@ class JToolbar
 		}
 
 		// End toolbar div.
-		$html[] = '<div class="clear"></div>';
 		$html[] = '</div>';
 
 		return implode("\n", $html);
