@@ -7,7 +7,6 @@
  * @since		3.0
  */
  
-// no direct access
 defined('_JEXEC') or die;
 
 $app = JFactory::getApplication();
@@ -20,7 +19,7 @@ $doc->addStyleSheet('templates/'.$this->template.'/css/template.css');
 $doc->addStyleSheet('../templates/system/css/bootstrap-responsive.css');
 
 // Add current user information
-$user =& JFactory::getUser();
+$user = JFactory::getUser();
 ?>
 <!DOCTYPE html>
 <html>
@@ -39,7 +38,7 @@ $user =& JFactory::getUser();
     else:
     $fullWidth = 0;
     endif;
-    $document =& JFactory::getDocument();
+    $document = JFactory::getDocument();
     
     // Adjusting content width
     if ($option == "com_cpanel") :
