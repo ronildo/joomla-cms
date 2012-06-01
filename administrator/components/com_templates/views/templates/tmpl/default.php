@@ -56,7 +56,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 				<th width="10%">
 					<?php echo JHtml::_('grid.sort', 'JCLIENT', 'a.client_id', $listDirn, $listOrder); ?>
 				</th>
-				<th width="10%" class="center">
+				<th width="10%">
 					<?php echo JText::_('JVERSION'); ?>
 				</th>
 				<th width="15%">
@@ -95,13 +95,13 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 					<?php endif; ?>
 					</p>
 				</td>
-				<td class="center">
+				<td class="small">
 					<?php echo $item->client_id == 0 ? JText::_('JSITE') : JText::_('JADMINISTRATOR'); ?>
 				</td>
-				<td class="center">
+				<td class="small">
 					<?php echo $this->escape($item->xmldata->get('version')); ?>
 				</td>
-				<td class="center">
+				<td class="small">
 					<?php echo $this->escape($item->xmldata->get('creationDate')); ?>
 				</td>
 				<td>

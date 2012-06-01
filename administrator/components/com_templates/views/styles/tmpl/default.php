@@ -24,7 +24,8 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 			<input type="text" name="filter_search" id="filter_search" placeholder="<?php echo JText::_('JSEARCH_FILTER_LABEL'); ?>" value="<?php echo $this->escape($this->state->get('filter.search')); ?>" title="<?php echo JText::_('COM_TEMPLATES_STYLES_FILTER_SEARCH_DESC'); ?>" />
 		</div>
 		<div class="btn-group pull-left">
-			<button class="btn tip" type="button" onclick="document.id('filter_search').value='';this.form.submit();" rel="tooltip" title="<?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?>"><i class="icon-remove"></i></button>
+			<button class="btn tip" type="submit" title="<?php echo JText::_('JSEARCH_FILTER_SUBMIT'); ?>"><i class="icon-search"></i></button>
+			<button class="btn tip" type="button" title="<?php echo JText::_('JSEARCH_FILTER_CLEAR'); ?>" onclick="document.id('filter_search').value='';this.form.submit();"><i class="icon-remove"></i></button>
 		</div>
 		<div class="filter-select btn-group pull-left">
 			<select name="filter_template" class="input-medium" onchange="this.form.submit()">
@@ -100,11 +101,11 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 						<?php echo $this->escape($item->title);?>
 					<?php endif; ?>
 				</td>
-				<td class="center">
+				<td class="small">
 					<?php echo $item->client_id == 0 ? JText::_('JSITE') : JText::_('JADMINISTRATOR'); ?>
 				</td>
 				<td>
-					<label for="cb<?php echo $i;?>">
+					<label for="cb<?php echo $i;?>" class="small">
 						<a href="<?php echo JRoute::_('index.php?option=com_templates&view=template&id='.(int) $item->e_id); ?>  ">
 							<?php echo ucfirst($this->escape($item->template));?>
 						</a>

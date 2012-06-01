@@ -72,9 +72,6 @@ $saveOrder	= $listOrder == 'a.ordering';
 				<th width="5%" class="nowrap">
 					<?php echo JHtml::_('grid.sort',  'COM_LANGUAGES_HEADING_LANG_IMAGE', 'a.image', $listDirn, $listOrder); ?>
 				</th>
-				<th width="5%" class="nowrap">
-					<?php echo JHtml::_('grid.sort',  'JSTATUS', 'a.published', $listDirn, $listOrder); ?>
-				</th>
 				<th width="10%">
 					<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ORDERING', 'a.ordering', $listDirn, $listOrder); ?>
 					<?php if ($canOrder && $saveOrder) :?>
@@ -115,6 +112,7 @@ $saveOrder	= $listOrder == 'a.ordering';
 					<?php echo JHtml::_('grid.id', $i, $item->lang_id); ?>
 				</td>
 				<td>
+					<?php echo JHtml::_('jgrid.published', $item->published, $i, 'languages.', $canChange);?>
 					<span class="editlinktip hasTip" title="<?php echo JText::_('JGLOBAL_EDIT_ITEM');?>::<?php echo $this->escape($item->title); ?>">
 					<?php if ($canEdit) : ?>
 						<a href="<?php echo JRoute::_('index.php?option=com_languages&task=language.edit&lang_id='.(int) $item->lang_id); ?>">
@@ -124,34 +122,31 @@ $saveOrder	= $listOrder == 'a.ordering';
 					<?php endif; ?>
 					</span>
 				</td>
-				<td class="center">
+				<td class="small">
 					<?php echo $this->escape($item->title_native); ?>
 				</td>
-				<td class="center">
+				<td class="small">
 					<?php echo $this->escape($item->lang_code); ?>
 				</td>
-				<td class="center">
+				<td class="small">
 					<?php echo $this->escape($item->sef); ?>
 				</td>
-				<td class="center">
+				<td class="small">
 					<?php echo $this->escape($item->image); ?>
-				</td>
-				<td class="center">
-					<?php echo JHtml::_('jgrid.published', $item->published, $i, 'languages.', $canChange);?>
 				</td>
 				<td class="order">
 					<?php if ($canChange) : ?>
-						<?php if ($saveOrder) :?>
-							<?php if ($listDirn == 'asc') : ?>
-								<span><?php echo $this->pagination->orderUpIcon($i, true, 'languages.orderup', 'JLIB_HTML_MOVE_UP', $ordering); ?></span>
-								<span><?php echo $this->pagination->orderDownIcon($i, $this->pagination->total, true, 'languages.orderdown', 'JLIB_HTML_MOVE_DOWN', $ordering); ?></span>
-							<?php elseif ($listDirn == 'desc') : ?>
-								<span><?php echo $this->pagination->orderUpIcon($i, true, 'languages.orderdown', 'JLIB_HTML_MOVE_UP', $ordering); ?></span>
-								<span><?php echo $this->pagination->orderDownIcon($i, $this->pagination->total, true, 'languages.orderup', 'JLIB_HTML_MOVE_DOWN', $ordering); ?></span>
+						<div class="input-prepend">
+							<?php if ($saveOrder) :?>
+								<?php if ($listDirn == 'asc') : ?>
+									<span class="add-on"><?php echo $this->pagination->orderUpIcon($i, true, 'languages.orderup', 'JLIB_HTML_MOVE_UP', $ordering); ?></span><span class="add-on"><?php echo $this->pagination->orderDownIcon($i, $this->pagination->total, true, 'languages.orderdown', 'JLIB_HTML_MOVE_DOWN', $ordering); ?></span>
+								<?php elseif ($listDirn == 'desc') : ?>
+									<span class="add-on"><?php echo $this->pagination->orderUpIcon($i, true, 'languages.orderdown', 'JLIB_HTML_MOVE_UP', $ordering); ?></span><span class="add-on"><?php echo $this->pagination->orderDownIcon($i, $this->pagination->total, true, 'languages.orderup', 'JLIB_HTML_MOVE_DOWN', $ordering); ?></span>
+								<?php endif; ?>
 							<?php endif; ?>
-						<?php endif; ?>
-						<?php $disabled = $saveOrder ?  '' : 'disabled="disabled"'; ?>
-						<input type="text" name="order[]" size="5" value="<?php echo $item->ordering;?>" <?php echo $disabled ?> class="span1 text-area-order" />
+							<?php $disabled = $saveOrder ?  '' : 'disabled="disabled"'; ?>
+							<?php if(!$disabled = $saveOrder) : echo "<span class=\"add-on tip\" title=\"".JText::_('JDISABLED')."\"><i class=\"icon-ban-circle\"></i></span>"; endif;?><input type="text" name="order[]" size="5" value="<?php echo $item->ordering;?>" <?php echo $disabled ?> class="width-20 text-area-order" />
+						</div>
 					<?php else : ?>
 						<?php echo $item->ordering; ?>
 					<?php endif; ?>
@@ -159,7 +154,7 @@ $saveOrder	= $listOrder == 'a.ordering';
 				<td class="center">
 					<?php echo $this->escape($item->access_level); ?>
 				</td>
-				<td class="center">
+				<td class="small">
 					<?php if ($item->home == '1') : ?>
 						<?php echo JText::_('JYES');?>
 					<?php else:?>
