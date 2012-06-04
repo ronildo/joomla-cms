@@ -63,7 +63,7 @@ $user = JFactory::getUser();
 	
 </head>
 
-<body class="site <?php echo $option . " view-" . $view . " layout-" . $layout . " task-" . $task . " itemid-" . $itemid . " ";?>">
+<body class="site <?php echo $option . " view-" . $view . " layout-" . $layout . " task-" . $task . " itemid-" . $itemid . " ";?>" data-spy="scroll" data-target=".subhead" data-offset="87">
 	<!-- Top Navigation -->
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
@@ -176,9 +176,37 @@ $user = JFactory::getUser();
 	</div>
 	<jdoc:include type="modules" name="debug" style="none" />
 	<script>
-		jQuery('.tip').tooltip()
-		jQuery('.tip-bottom').tooltip({placement: "bottom"})
-		jQuery('.pop').popover()
+		(function($){
+			$('*[rel=tooltip]').tooltip()
+			$('.tip-bottom').tooltip({placement: "bottom"})
+			$('*[rel=popover]').popover()
+			
+			// fix sub nav on scroll
+		    var $win = $(window)
+		      , $nav = $('.subhead')
+		      , navTop = $('.subhead').length && $('.subhead').offset().top - 40
+		      , isFixed = 0
+		
+		    processScroll()
+		
+		    // hack sad times - holdover until rewrite for 2.1
+		    $nav.on('click', function () {
+		      if (!isFixed) setTimeout(function () {  $win.scrollTop($win.scrollTop() - 47) }, 10)
+		    })
+		
+		    $win.on('scroll', processScroll)
+		
+		    function processScroll() {
+		      var i, scrollTop = $win.scrollTop()
+		      if (scrollTop >= navTop && !isFixed) {
+		        isFixed = 1
+		        $nav.addClass('subhead-fixed')
+		      } else if (scrollTop <= navTop && isFixed) {
+		        isFixed = 0
+		        $nav.removeClass('subhead-fixed')
+		      }
+		    }
+	    })(jQuery);
 	</script>
 </body>
 </html>
