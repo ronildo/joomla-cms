@@ -218,3 +218,37 @@ body .navbar-fixed-top{
 		text-align: center;
 	}
 }
+
+/* Subhead (toolbar) Collapse Button */
+.btn-subhead{
+	display: none;
+}
+
+/* Extended Responsive Styles */
+@media (max-width: 480px) {
+	.table th:nth-of-type(n+3),
+	.table td:nth-of-type(n+3){
+		display: none;
+		white-space: normal;
+	}
+	.pagination a{
+		padding: 5px;
+	}
+	.btn-group.divider,
+	.header .row-fluid .span3,
+	.header .row-fluid .span7,
+	.subhead-collapse{
+		display: none;
+	}
+	.btn{
+		font-size: 11px;
+		padding: 1px 4px 2px 4px;
+	}
+	.navbar .btn{
+		margin: 0;
+	}
+	.btn-subhead{
+		display: block;
+		margin: 10px 0;
+	}
+}
