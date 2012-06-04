@@ -124,11 +124,14 @@ $user = JFactory::getUser();
 		</div>
 	</div>
 	<!-- Subheader -->
-	<div class="subhead">
-		<div class="container-fluid">
-			<div class="row-fluid">
-				<div class="span12">
-					<jdoc:include type="modules" name="toolbar" style="no" />
+	<a class="btn btn-subhead" data-toggle="collapse" data-target=".subhead-collapse"><?php echo JText::_('TPL_STRAPPED_TOOLBAR');?> <i class="icon-wrench"></i></a>
+	<div class="subhead-collapse">
+		<div class="subhead">
+			<div class="container-fluid">
+				<div class="row-fluid">
+					<div class="span12">
+						<jdoc:include type="modules" name="toolbar" style="no" />
+					</div>
 				</div>
 			</div>
 		</div>
