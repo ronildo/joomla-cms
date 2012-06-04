@@ -60,10 +60,10 @@ $canDo		= SearchHelper::getActions();
 				<th class="title">
 					<?php echo JHtml::_('grid.sort', 'COM_SEARCH_HEADING_PHRASE', 'a.search_term', $listDirn, $listOrder); ?>
 				</th>
-				<th width="15%">
+				<th width="15%" class="center">
 					<?php echo JHtml::_('grid.sort', 'JGLOBAL_HITS', 'a.hits', $listDirn, $listOrder); ?>
 				</th>
-				<th width="15%">
+				<th width="15%" class="center">
 					<?php echo JText::_('COM_SEARCH_HEADING_RESULTS'); ?>
 				</th>
 				<th width="30%">

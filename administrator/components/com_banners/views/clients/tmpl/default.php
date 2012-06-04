@@ -55,9 +55,6 @@ $params		= (isset($this->state->params)) ? $this->state->params : new JObject();
 					<?php echo JHtml::_('grid.sort', 'COM_BANNERS_HEADING_CONTACT', 'contact', $listDirn, $listOrder); ?>
 				</th>
 				<th width="5%">
-					<?php echo JHtml::_('grid.sort',  'JSTATUS', 'a.state', $listDirn, $listOrder); ?>
-				</th>
-				<th width="5%">
 					<?php echo JHtml::_('grid.sort', 'COM_BANNERS_HEADING_ACTIVE', 'nbanners', $listDirn, $listOrder); ?>
 				</th>
 				<th width="5%" class="nowrap">
@@ -90,7 +87,8 @@ $params		= (isset($this->state->params)) ? $this->state->params : new JObject();
 				<td class="center">
 					<?php echo JHtml::_('grid.id', $i, $item->id); ?>
 				</td>
-				<td>
+				<td class="nowrap">
+					<?php echo JHtml::_('jgrid.published', $item->state, $i, 'clients.', $canChange);?>
 					<?php if ($item->checked_out) : ?>
 						<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'clients.', $canCheckin); ?>
 					<?php endif; ?>
@@ -101,19 +99,16 @@ $params		= (isset($this->state->params)) ? $this->state->params : new JObject();
 							<?php echo $this->escape($item->name); ?>
 					<?php endif; ?>
 				</td>
-				<td class="center">
+				<td class="small">
 					<?php echo $item->contact;?>
-				</td>
-				<td class="center">
-					<?php echo JHtml::_('jgrid.published', $item->state, $i, 'clients.', $canChange);?>
 				</td>
 				<td class="center">
 					<?php echo $item->nbanners; ?>
 				</td>
-				<td>
+				<td class="small">
 					<?php echo $item->metakey; ?>
 				</td>
-				<td class="center">
+				<td class="small">
 					<?php if ($item->purchase_type<0):?>
 						<?php echo JText::sprintf('COM_BANNERS_DEFAULT', JText::_('COM_BANNERS_FIELD_VALUE_'.$params->get('purchase_type')));?>
 					<?php else:?>

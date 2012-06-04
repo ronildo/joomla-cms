@@ -83,9 +83,7 @@ Joomla.submitbutton = function(pressbutton) {
 				<th>
 					<?php echo JHtml::_('grid.sort', 'JGLOBAL_TITLE', 'l.title', $listDirn, $listOrder); ?>
 				</th>
-				<th width="5%">
-					<?php echo JHtml::_('grid.sort', 'JSTATUS', 'l.published', $listDirn, $listOrder); ?>
-				</th>
+				<th> </th>
 				<th width="5%">
 					<?php echo JHtml::_('grid.sort', 'COM_FINDER_INDEX_HEADING_INDEX_TYPE', 'l.type_id', $listDirn, $listOrder); ?>
 				</th>
@@ -117,10 +115,9 @@ Joomla.submitbutton = function(pressbutton) {
 					<?php echo JHtml::_('grid.id', $i, $item->link_id); ?>
 				</td>
 				<td>
-					<?php if (intval($item->publish_start_date) or intval($item->publish_end_date) or intval($item->start_date) or intval($item->end_date)) : ?>
-						<i class="icon-calendar pull-right pop" rel="popover" title="<?php echo JText::_('JDETAILS');?>" data-content="<?php echo JText::sprintf('COM_FINDER_INDEX_DATE_INFO', $item->publish_start_date, $item->publish_end_date, $item->start_date, $item->end_date);?>"></i>
-					<?php endif; ?>
-					<?php echo '<h4>' . $this->escape($item->title) . '</h4>'; ?>
+					<h4>
+					<?php echo JHtml::_('jgrid.published', $item->published, $i, 'index.', $canChange, 'cb'); ?>
+					<?php echo $this->escape($item->title); ?>
 					<?php
 					echo '<small>';
 					if (strlen($item->url) > 80) {
@@ -130,17 +127,20 @@ Joomla.submitbutton = function(pressbutton) {
 					}
 					echo '</small>';
 					?>
+					</h4>
 				</td>
-				<td class="center nowrap">
-					<?php echo JHtml::_('jgrid.published', $item->published, $i, 'index.', $canChange, 'cb'); ?>
+				<td>
+					<?php if (intval($item->publish_start_date) or intval($item->publish_end_date) or intval($item->start_date) or intval($item->end_date)) : ?>
+						<i class="icon-calendar pull-right pop" rel="popover" data-placement="left" title="<?php echo JText::_('JDETAILS');?>" data-content="<?php echo JText::sprintf('COM_FINDER_INDEX_DATE_INFO', $item->publish_start_date, $item->publish_end_date, $item->start_date, $item->end_date);?>"></i>
+					<?php endif; ?>
 				</td>
-				<td class="center nowrap">
+				<td class="small nowrap">
 					<?php
 					$key = FinderHelperLanguage::branchSingular($item->t_title);
 					echo $lang->hasKey($key) ? JText::_($key) : $item->t_title;
 					?>
 				</td>
-				<td class="center nowrap">
+				<td class="small nowrap">
 					<?php echo JHtml::_('date', $item->indexdate, JText::_('DATE_FORMAT_LC4')); ?>
 				</td>
 			</tr>

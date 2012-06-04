@@ -59,9 +59,6 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 				<th width="20%" class="nowrap">
 					<?php echo JHtml::_('grid.sort', 'COM_BANNERS_HEADING_CLIENT', 'cl.name', $listDirn, $listOrder); ?>
 				</th>
-				<th width="20%">
-					<?php echo JHtml::_('grid.sort', 'JCATEGORY', 'cat.title', $listDirn, $listOrder); ?>
-				</th>
 				<th width="10%" class="nowrap">
 					<?php echo JHtml::_('grid.sort', 'COM_BANNERS_HEADING_TYPE', 'track_type', $listDirn, $listOrder); ?>
 				</th>
@@ -85,14 +82,14 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 			<tr class="row<?php echo $i % 2; ?>">
 				<td>
 					<?php echo $item->name;?>
+					<div class="small">
+						<?php echo $item->category_title;?>
+					</div>
 				</td>
 				<td>
 					<?php echo $item->client_name;?>
 				</td>
-				<td>
-					<?php echo $item->category_title;?>
-				</td>
-				<td>
+				<td class="small">
 					<?php echo $item->track_type==1 ? JText::_('COM_BANNERS_IMPRESSION'): JText::_('COM_BANNERS_CLICK');?>
 				</td>
 				<td>
