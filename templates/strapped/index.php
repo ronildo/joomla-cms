@@ -112,7 +112,8 @@ $user =& JFactory::getUser();
 	</div>
 	<jdoc:include type="modules" name="debug" style="none" />
 	<script>
-		jQuery('.tip').tooltip()
+		jQuery('*[rel=tooltip]').tooltip()
+		jQuery('*[rel=popover]').popover()
 		jQuery('.tip-bottom').tooltip({placement: "bottom"})
 	</script>
 </body>
