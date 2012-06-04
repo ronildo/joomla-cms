@@ -130,6 +130,13 @@ body .navbar-fixed-top{
 	margin-bottom: 20px;
 	
 }
+.subhead-fixed{
+	position: fixed;
+	width: 100%;
+	top: 30px;
+	z-index: 100;
+}
+
 @media (max-width: 767px) {
   .subhead{
   	margin-left: -20px;
