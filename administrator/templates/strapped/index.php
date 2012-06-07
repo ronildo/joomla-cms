@@ -43,11 +43,11 @@ $user = JFactory::getUser();
     // Adjusting content width
     if ($option == "com_cpanel") :
     	$span = "span8";
-    elseif ((!JRequest::getInt('hidemainmenu')) && $this->countModules('right')) :
+    elseif ($this->countModules('left') && $this->countModules('right')) :
     	$span = "span6";
-    elseif ((!JRequest::getInt('hidemainmenu')) && !$this->countModules('right')) :
+    elseif ($this->countModules('left') && !$this->countModules('right')) :
     	$span = "span10";
-    elseif ((JRequest::getInt('hidemainmenu')) && $this->countModules('right')) :
+    elseif (!$this->countModules('left') && $this->countModules('right')) :
     	$span = "span8";
     else :
     	$span = "span12";
@@ -139,11 +139,11 @@ $user = JFactory::getUser();
 	<!-- container-fluid -->
 	<div class="container-fluid">
 		<div class="row-fluid">
-			<?php if (!JRequest::getInt('hidemainmenu') && $option != "com_cpanel"): ?>
+			<?php if (($this->countModules('left')) && ($option != "com_cpanel")): ?>
 			<!-- Begin Sidebar -->
 			<div id="sidebar" class="span2">
 				<div class="sidebar-nav">
-					<jdoc:include type="modules" name="submenu" style="no" />
+					<jdoc:include type="modules" name="left" style="no" />
 				</div>
 			</div>
 			<!-- End Sidebar -->
